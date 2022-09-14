@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/public/table/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <%- include ('./admin-nav.ejs') %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <form
+            action="/add-user"
+            enctype="application/x-www-form-urlencoded"
+            method="post"
+          >
+            <div class="form-group" style="width: 600px; display: flex; justify-content:space-between; margin-left: 40px; margin-top: 40px;">
+              <input type="text" name="user_name" value="new user" class="form-control" style="margin-right: 10px;"/>
+              <input type="text" name="user_password" value="345" class="form-control" style="margin-right: 10px;"/>
+              <input type="number" name="user_status" max="3" min="1" class="form-control" style="margin-right: 10px;"/>
+              <button type="submit" class="btn btn-primary">ADD</button>
+            </div>
+          </form>
+          <div class="table-wrap">
+            <ol id="list" style="list-style: none">
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>№</th>
+                    <th>Name</th>
+                    <th>Password</th>
+                    <th>status</th>
+                    <th>delete user</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% all_users.map(el => { %>
+                  <li>
+                    <tr>
+                      <td><%= el.user_id%></td>
+                      <td><%= el.user_name %></td>
+                      <td><%= el.user_password %></td>
+                      <td><%= el.user_status %></td>
+                      <td>
+                        <form>
+                          <button
+                            data-id="<%= el.user_id %>"
+                            class="go-btn"
+                            id="delete"
+                          >
+                            delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                  </li>
+                  <% }) %>
+                </tbody>
+              </table>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/public/table/js/jquery.min.js"></script>
+    <script src="/public/table/js/popper.js"></script>
+    <script src="/public/table/js/bootstrap.min.js"></script>
+    <script src="/public/table/js/main.js"></script>
+    <script>
+      const list = document.querySelector("#list");
+      list.addEventListener("click", (evt) => {
+        evt.preventDefault();
+        let user_id;
+        evt.target.dataset.id ? (user_id = evt.target.dataset.id) : "";
+        document.cookie = "user_id" + "=" + (user_id || "");
+
+        fetch("http://localhost:6060/users", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ user_id }),
+        });
+        window.location.reload();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/public/table/style.css" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <%- include ('./sidebar.ejs') %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-wrap">
+            <ol id="list" style="list-style: none">
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>№</th>
+                    <th>title</th>
+                    <th>group id</th>
+                    <th>delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% tasks.map(el=> { %>
+                  <li>
+                    <tr>
+                      <td><%= el.task_id %></td>
+                      <td style="display: flex; align-items: center" id="title">
+                        <%= el.task_title %>
+                      </td>
+                      <td><%= el.group_id %></td>
+                      <td>
+                        <button
+                          data-task_id="<%= el.task_id %>"
+                          class="delete-btn"
+                        >
+                          remove task
+                        </button>
+                      </td>
+                    </tr>
+                  </li>
+                  <% }) %>
+                </tbody>
+              </table>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/public/table/js/jquery.min.js"></script>
+    <script src="/public/table/js/popper.js"></script>
+    <script src="/public/table/js/bootstrap.min.js"></script>
+    <script src="/public/table/js/main.js"></script>
+    <script>
+      const delete_btn = document.querySelector("#list");
+      delete_btn.addEventListener("click", (evt) => {
+        evt.preventDefault();
+        let task;
+        evt.target.dataset.task_id
+          ? (task = evt.target.dataset.task_id)
+          : console.log("");
+        fetch(`http://localhost:6060/tasks`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ task }),
+        });
+
+        window.location.reload();
+      });
+    </script>
+  </body>
+</html>

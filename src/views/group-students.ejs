@@ -1,0 +1,71 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/public/table/style.css" />
+    <link rel="stylesheet" href="/public/css/teachers.css">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <%- include ('./sidebar.ejs') %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-wrap">
+            <table class="table">
+              <thead class="thead-dark">
+                <th>Group</th>
+                <th>Name</th>
+              </thead>
+              <tbody>
+                <% group_members.map(el=> { %>
+                <tr>
+                  <td><%= el.group_title %></td>
+                  <td><%= el.user_name %></td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+          <button id="myBtn">ADD NEW TASK</button>
+          <div id="myModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+      
+              <h4>ADD NEW TASK</h4>
+              <p>
+                You needn't to select the group you want to add new hometask as it
+                gets detected automatically :)) JUST WRITE THE TITLE & HIT THE SEND
+                BUTTON
+              </p>
+              <form action="/tasks" id="form">
+                <input type="text" name="task_title" id="title" required />
+                <button type="submit">send</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/public/table/js/jquery.min.js"></script>
+    <script src="/public/table/js/popper.js"></script>
+    <script src="/public/table/js/bootstrap.min.js"></script>
+    <script src="/public/table/js/main.js"></script>
+    <script src="/public/js/tasks.js"></script>
+  </body>
+</html>

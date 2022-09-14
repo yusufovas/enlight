@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/public/table/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <%- include ('./admin-nav.ejs') %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <form
+            action="/add-group"
+            enctype="application/x-www-form-urlencoded"
+            method="post"
+          >
+            <div
+              class="form-group"
+              style="
+                width: 600px;
+                display: flex;
+                justify-content: space-between;
+                margin-left: 40px;
+                margin-top: 40px;
+              "
+            >
+              <input type="text" name="course_id" value="Math" class="form-control" style="margin-right: 10px" required />
+              <input
+                type="text"
+                name="group_title"
+                value="new math group"
+                required
+                class="form-control"
+                style="margin-right: 10px"
+              />
+              <input
+                type="text"
+                name="teacher_id"
+                required
+                class="form-control"
+                style="margin-right: 10px"
+              />
+              <button type="submit" class="btn btn-primary">ADD</button>
+            </div>
+          </form>
+          <div class="table-wrap">
+            <ol id="list" style="list-style: none">
+              <li>
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th style="font-size: 18px;">№</th>
+                      <th style="font-size: 18px;">title</th>
+                      <th style="font-size: 18px;">course</th>
+                      <th style="font-size: 18px;">teacher</th>
+                      <th style="font-size: 18px;">&times;</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% all_groups.map(el => { %>
+                    <li>
+                      <tr>
+                        <td><%= el.group_id%></td>
+                        <td><%= el.group_title %></td>
+                        <td><%= el.course %></td>
+                        <td><%= el.teacher %></td>
+                        <td>
+                          <form>
+                            <button
+                              data-id="<%= el.group_id %>"
+                              class="go-btn"
+                              id="delete"
+                            >
+                              delete
+                            </button>
+                          </form>
+                        </td>
+                      </tr>
+                    </li>
+                    <% }) %>
+                  </tbody>
+                </table>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/public/table/js/jquery.min.js"></script>
+    <script src="/public/table/js/popper.js"></script>
+    <script src="/public/table/js/bootstrap.min.js"></script>
+    <script src="/public/table/js/main.js"></script>
+    <script>
+      const list = document.querySelector("#list");
+      list.addEventListener("click", (evt) => {
+        evt.preventDefault();
+        let group_id;
+        evt.target.dataset.id ? (group_id = evt.target.dataset.id) : "";
+        document.cookie = "group_id" + "=" + (group_id || "");
+
+        fetch("http://localhost:6060/delete-group", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ group_id }),
+        });
+        window.location.reload();
+      });
+    </script>
+  </body>
+</html>

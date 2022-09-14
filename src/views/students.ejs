@@ -1,0 +1,102 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/public/table/style.css" />
+    <style>
+      #myModal {
+        width: 1070px;
+        text-align: center;
+        padding: 20px 40px;
+        min-height: 500px;
+        color: white;
+        background-color: #343a40;
+        margin-left: 40px;
+      }
+      h4{
+        color: white;
+      }
+      .m_content{
+        color: fff;
+        font-size: 24px;
+        text-align: left;
+      }
+      .go-btn {
+        padding: 5px;
+        background-color: inherit;
+        border: 0;
+        font-weight: 600;
+      }
+      .go-btn:hover {
+        background-color: rgba(158, 158, 158, 0.553);
+        color: white;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-wrap">
+            <ol id="list" style="list-style: none">
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>№</th>
+                    <th>Group Name</th>
+                    <th>Tasks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% groups.map(el=> { %>
+                  <li>
+                    <tr>
+                      <td><%= el.group_id %></td>
+                      <td><%= el.group_title %></td>
+                      <td>
+                        <button
+                          data-id="<%= el.group_id %>"
+                          class="go-btn"
+                          id="form"
+                        >
+                          View Tasks
+                        </button>
+                      </td>
+                    </tr>
+                  </li>
+                  <% }) %>
+                </tbody>
+              </table>
+            </ol>
+            <div id="myModal">
+              <h4>UPCOMING TASKS</h4>
+              <div class="m_content">
+                <p id="title"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/public/table/js/jquery.min.js"></script>
+    <script src="/public/table/js/popper.js"></script>
+    <script src="/public/table/js/bootstrap.min.js"></script>
+    <script src="/public/table/js/main.js"></script>
+    <script src="/public/js/students.js"></script>
+  </body>
+</html>

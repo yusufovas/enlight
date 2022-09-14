@@ -1,0 +1,70 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/public/table/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <%- include ('./sidebar.ejs') %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-wrap">
+            <ol id="list" style="list-style: none">
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th style="font-size: 18px;">№</th>
+                    <th style="font-size: 18px;">title</th>
+                    <th style="font-size: 18px;">view</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% groups.map(el=> { %>
+                  <li>
+                    <tr>
+                      <td><%= el.id %></td>
+                      <td><%= el.group_title %></td>
+                      <td>
+                        <form
+                          action="/group-students"
+                          method="get"
+                          enctype="application/x-www-form-urlencoded"
+                        >
+                          <button data-id="<%= el.group_id %>" class="go-btn">
+                            view
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                  </li>
+                  <% }) %>
+                </tbody>
+              </table>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/public/table/js/jquery.min.js"></script>
+    <script src="/public/table/js/popper.js"></script>
+    <script src="/public/table/js/bootstrap.min.js"></script>
+    <script src="/public/table/js/main.js"></script>
+    <script src="/public/js/teachers.js"></script>
+  </body>
+</html>
