@@ -26,7 +26,7 @@ module.exports = {
         user_password,
         user_status ? parseInt(user_status) : 3
       );
-      res.redirect("/dashboard");
+      res.redirect("/view-users");
     } catch (error) {
       next(error);
     }

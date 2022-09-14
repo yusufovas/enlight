@@ -46,6 +46,9 @@ module.exports = {
         res.cookie("role", "student");
         res.redirect("/student");
       }
+      else {
+        res.redirect('/login')
+      }
     } catch (error) {
       next(error);
     }
