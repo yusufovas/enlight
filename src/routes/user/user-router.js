@@ -8,7 +8,7 @@ const router = Router();
 router
   .get("/teachers", access, users.teacher_groups)
   .get("/group-students", access, users.group_students)
-  .get("/main", main.get)
+  .get("/", main.get)
   .get("/student", access, users.student_groups)
   .post("/tasks", access, tasks.post)
   .get("/tasks", access, tasks.get)
