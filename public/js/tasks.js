@@ -1,12 +1,10 @@
-const form = document.getElementById("form");
+const task_form = document.getElementById("task_form");
 const title = document.getElementById("title");
 let cookie = document.cookie.split(";");
 let c = cookie.find((el) => el.includes("group_id"));
 let splitted = parseInt(c.split("=")[1]);
 
-console.log(splitted);
-
-form.addEventListener("submit", (evt) => {
+task_form.addEventListener("submit", (evt) => {
   evt.preventDefault();
 
   fetch("http://localhost:6060/tasks", {
@@ -24,12 +22,13 @@ form.addEventListener("submit", (evt) => {
 
 var modal = document.getElementById("myModal");
 
-var btn = document.getElementById("myBtn");
+var button = document.getElementById("myBtn");
 
 var span = document.getElementsByClassName("close")[0];
 
-btn.onclick = function () {
+button.onclick = function () {
   modal.style.display = "block";
+  console.log('ok');
 };
 
 span.onclick = function () {

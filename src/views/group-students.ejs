@@ -25,7 +25,7 @@
     <%- include ('./sidebar.ejs') %>
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" style="margin-left: 100px;">
           <div class="table-wrap">
             <table class="table">
               <thead class="thead-dark">
@@ -53,7 +53,7 @@
                 gets detected automatically :)) JUST WRITE THE TITLE & HIT THE SEND
                 BUTTON
               </p>
-              <form action="/tasks" id="form">
+              <form action="/tasks" id="task_form">
                 <input type="text" name="task_title" id="title" required />
                 <button type="submit">send</button>
               </form>
